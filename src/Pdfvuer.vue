@@ -119,7 +119,6 @@ export default {
 			if (this.pdfViewer) {
 				this.pdfViewer.update(this.scale,newRotate);
 				this.pdfViewer.draw();
-				this.loading = false;
 			}
 		}
 	},
@@ -133,6 +132,7 @@ export default {
         newScale = newScale === 'page-width' ? pageWidthScale : newScale;
 				this.pdfViewer.update(newScale,this.rotate);
 				this.pdfViewer.draw();
+				this.loading = false;
 			}
 		}
   },
