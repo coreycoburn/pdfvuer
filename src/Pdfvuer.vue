@@ -1,7 +1,10 @@
 <template>
-	<div id="viewerContainer" ref="container">
-		<div id="viewer" class="pdfViewer"></div>
-		<resizeSensor :initial="true"/>
+	<div>
+		<slot v-if="loading" name="loading"/>
+		<div :class="pdfContainer" id="viewerContainer" ref="container">
+			<div id="viewer" class="pdfViewer"></div>
+			<resizeSensor :initial="true"/>
+		</div>
 	</div>
 </template>
 <script>
@@ -70,7 +73,8 @@ export default {
 		return {
 			internalSrc: this.src,
 			pdf: null,
-			pdfViewer: null
+			pdfViewer: null,
+			loading: true
 		}
 	},
 	props: {
@@ -89,6 +93,10 @@ export default {
 		scale: {
 			type: [Number, String],
 			default: 1,
+		},
+		pdfContainer: {
+			type: String,
+			default: '',
 		},
 
 	},
@@ -111,6 +119,7 @@ export default {
 			if (this.pdfViewer) {
 				this.pdfViewer.update(this.scale,newRotate);
 				this.pdfViewer.draw();
+				this.loading = false;
 			}
 		}
 	},
